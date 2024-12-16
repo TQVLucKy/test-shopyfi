@@ -28,7 +28,7 @@
 {%- endstyle -%}
 
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  {%- liquid
+  <!-- {%- liquid
     assign has_social_icons = true
     if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
       assign has_social_icons = false
@@ -41,8 +41,8 @@
     if section.blocks.size == 1 and section.blocks[0].type == 'brand_information' and brand_empty and has_social_icons == false and section.settings.newsletter_enable == false and section.settings.enable_follow_on_shop == false
       assign only_empty_brand = true
     endif
-  -%}
-  {%- if section.blocks.size > 0
+  -%} -->
+  <!-- {%- if section.blocks.size > 0
     or section.settings.newsletter_enable
     or section.settings.show_social
     and has_social_icons == true
@@ -248,9 +248,9 @@
         </div>
       </div>
     {%- endunless -%}
-  {%- endif -%}
+  {%- endif -%} -->
 
-  <div
+  <!-- <div
     class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     {% if settings.animations_reveal_on_scroll %}
       data-cascade
@@ -318,7 +318,82 @@
         {%- endif -%}
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <div class="footer-contain">
+                    <div class="footer-main">
+                        <div class="footer-main-left">
+                            <div class="linklist-container">
+                                <button
+                                    class="accordion"><span></span>DISCOVER</button>
+                                <div class="panel">
+                                    <ul>
+                                        <li><a href>Stores</a></li>
+                                        <li><a href>Gift Cards</a></li>
+                                        <li><a href>Check Gift Card
+                                                Balance</a></li>
+                                        <li><a href>Size Guide</a></li>
+                                        <li><a href>The Journal</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="linklist-container">
+                                <button
+                                    class="accordion"><span></span>HELP</button>
+                                <div class="panel">
+
+                                    <ul>
+                                        <li><a href>Contact Us</a></li>
+                                        <li><a href>Help Centre</a></li>
+                                        <li><a href>Shipping</a></li>
+                                        <li><a href>Returns</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="footer-main-right">
+                            <h2 class="linklist-title">ACADEMY REWARDS</h2>
+                            <p class="footer-right-describe">Join Academy
+                                Rewards to receive a $10 Welcome reward and
+                                earn as you spend. Please allow 24 hours for
+                                rewards to appear in your account.</p>
+                            <div class="slideshow-button">
+                                <a href class="buttongroup-item">JOIN
+                                    NOW</a>
+                            </div>
+                            <ul class="footer-social">
+                                <li><a href><i
+                                            class="fa fa-facebook-official"></i></a></li>
+                                <li><a href><i
+                                            class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-under">
+                        <select id="currency-dropdown">
+                            <option value="AUD">AUD $</option>
+                            <option value="BND">BND $</option>
+                            <option value="CAD">CAD $</option>
+                            <option value="CHF">CHF CHF</option>
+                            <option value="EUR">EUR €</option>
+                            <option value="GBP">GBP £</option>
+                            <option value="HKD">HKD $</option>
+                            <option value="JPY">JPY ¥</option>
+                            <option value="MYR">MYR RM</option>
+                            <option value="NZD">NZD $</option>
+                            <option value="SEK">SEK KR</option>
+                            <option value="SGD">SGD $</option>
+                            <option value="TWD">TWD $</option>
+                            <option value="USD">USD $</option>
+                        </select>
+                        <div class="footer-copyright"><a
+                                class="footer-storename" href>© 2022 Academy
+                                Brand</a></div>
+                    </div>
+
+                </div>
 </footer>
 
 {% schema %}
