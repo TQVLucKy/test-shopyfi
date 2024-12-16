@@ -16,7 +16,7 @@
   display: flex;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   max-width:120rem;
   margin: 0 auto;
   transform: translateX(-50%);
