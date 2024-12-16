@@ -49,6 +49,9 @@
 .dropdown-list .dropdown-content .megamenu-list .megamenu-item .linklist li {
   margin: 0;
 }
+.dropdown-list .dropdown-content .megamenu-list .megamenu-item .linklist a {
+  font-weight:normal;
+}
 .dropdown-list .dropdown-content .megamenu-list .megamenu-img {
   margin-left: auto;
   display: flex;
