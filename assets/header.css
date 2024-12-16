@@ -18,6 +18,8 @@
   top: 0;
   left: 50%;
   max-width:120rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
   transform: translateX(-50%);
   justify-content: center;
   width: 100%;
