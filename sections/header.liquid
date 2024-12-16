@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
-
+<link rel="stylesheet" href="{{ 'header.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- if settings.predictive_search_enabled -%}
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
@@ -13,6 +13,7 @@
 
 
 <style>
+  
   header-drawer {
     justify-self: start;
     margin-left: -1.2rem;
@@ -25,7 +26,7 @@
   {%- endif -%}
 
   {%- if section.settings.menu_type_desktop != "drawer" -%}
-    @media screen and (min-width: 990px) {
+    @media screen and (min-width: 1200px) {
       header-drawer {
         display: none;
       }
@@ -35,7 +36,6 @@
   .menu-drawer-container {
     display: flex;
   }
-
   .list-menu {
     list-style: none;
     padding: 0;
@@ -94,6 +94,87 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+.header-left{
+  display:flex;
+}
+  .header-left ul,
+.header-right ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex: 1 0 0;
+}
+.header-left ul li,
+.header-right ul li {
+  position: relative;
+  margin: 0 5px;
+}
+.header-left ul li a,
+.header-right ul li a {
+  text-decoration: none;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #000000;
+  display: inline-block;
+  padding: 5px 0;
+}
+.header-left .header-list-left {
+  margin: 0 20px;
+  
+}
+  .header-left .header-list-left .header-list-items{
+       text-transform: uppercase;
+  }
+.header-left .header-list-left .header-list-items::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000000;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
+}
+.header-left .header-list-left .header-list-items:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom right;
+}
+.header-left .header-list-left:hover .dropdown-list {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+@media screen and (max-width: 1200px) {
+  .header-left {
+    display: none;
+  }
+}
+  .header .header-right a {
+  padding: 0 10px;
+    cursor:pointer;
+}
+.header-right{
+  display: flex;
+  justify-self: end;
+}
+  .header-center{
+      display:flex;
+    justify-content:space-between;
+  }
+    @media screen and (min-width: 1200px) {
+  .header-right-icon{
+        display: none;
+  }
+      
+  }
+    @media screen and (max-width: 1200px) {
+  
+  .header-right{
+        display:none;
+      }
+    }
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
@@ -106,7 +187,7 @@
   endfor
 -%}
 
-<{% if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="{{ section.settings.sticky_header_type }}"{% else %}div{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
+<{% if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="always"{% else %}div{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
   {%- liquid
     assign social_links = false
     assign localization_forms = false
@@ -119,7 +200,419 @@
       assign localization_forms = true
     endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+  <header class="header header-center header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+      <!-- {%- liquid
+      if section.settings.menu != blank
+        if section.settings.menu_type_desktop == 'dropdown'
+          render 'header-dropdown-menu'
+        elsif section.settings.menu_type_desktop != 'drawer'
+          render 'header-mega-menu'
+        endif
+      endif
+    %} -->
+
+    <div class="header-left">
+      <ul>
+        <li class="header-list-left">
+          <a class="header-list-items" href>Bundles</a>
+         <div class="dropdown-list">
+                                <div class="dropdown-content">
+                                    <div class="megamenu-list">
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>Mens Bundles</a>
+                                            <ul class="linklist">
+                                                <li><a href>2 for $150 Shirts & Shorts</a></li>
+                                                <li><a href>2 for $99 Volleys</a></li>
+                                                <li><a href>2 for $120 Swim</a></li>
+                                                <li><a href>2 for $80 Varsity & Mac Tees</a></li>
+                                                <li><a href>2 for $60 Roth & Jimmy Tees</a></li>
+                                                <li><a href>2 for $50 Basic Tees</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title" href="#">Womens Bundles</a>
+                                            <ul class="linklist">
+                                                <li><a href="#">2 for $150 Shirts & Shorts</a></li>
+                                                <li><a href="#">2 for $60 Tees & Tanks</a></li>
+                                                <li><a href="#">2 for $80 Long Sleeve Tops</a></li>
+                                            </ul>
+                                        </div>
+                                      <div class="megamenu-item">
+                                          <a class="megamenu-item-title" href="#">Kids Bundles</a>
+                                          <ul class="linklist">
+                                              <li><a href="#">2 for $99 Shirts & Shorts</a></li>
+                                              <li><a href="#">2 for $30 Basic Tees</a></li>
+                                              <li><a href="#">2 for $80 Sweats</a></li>
+                                          </ul>
+                                      </div>
+                                        <div class="megamenu-img">
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_f19f0c19-244e-493e-ad9d-c8623bec0190_370x230@2x.jpg?v=1725940076">
+                                                <b>NEW ARRIVALS</b>
+                                            </div>
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_GetawayEdit_370x230@2x.jpg?v=1726616398">
+                                                <b>THE GETAWAY EDIT</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </li>
+        <li class="header-list-left">
+          <a class="header-list-items" href>MENS</a>
+          <div class="dropdown-list">
+                                <div class="dropdown-content">
+                                    <div class="megamenu-list">
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>EDITS</a>
+                                            <ul class="linklist">
+                                                <li><a href>The Holiday
+                                                        Edit</a></li>
+                                                <li><a href>Colours Of
+                                                        Spring</a></li>
+                                                <li><a href>Best Of
+                                                        Linen</a></li>
+                                                <li><a href>Spring
+                                                        Textures</a></li>
+                                                <li><a href>Academy
+                                                        Icons</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>CLOTHING</a>
+                                            <ul class="linklist">
+                                                <li><a href>View
+                                                        All</a></li>
+                                                <li><a href>Shorts</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Short Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Polo
+                                                        Shirts</a></li>
+                                                <li><a href>Tops &
+                                                        Tees</a></li>
+                                                <li><a href>Swim</a></li>
+                                                <li><a href>Pants &
+                                                        Chinos</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Tops</a></li>
+                                                <li><a href>Sweats</a></li>
+                                                <li><a href>Jackets &
+                                                        Outerwear</a></li>
+                                                <li><a
+                                                        href>Knitwear</a></li>
+                                                <li><a
+                                                        href>Accessories</a></li>
+                                                <li><a href>Sale</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-img">
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_f19f0c19-244e-493e-ad9d-c8623bec0190_370x230@2x.jpg?v=1725940076">
+                                                <b>NEW ARRIVALS</b>
+                                            </div>
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_GetawayEdit_370x230@2x.jpg?v=1726616398">
+                                                <b>THE GETAWAY EDIT</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </li>
+        <li class="header-list-left">
+          <a class="header-list-items" href>MENS</a>
+          <div class="dropdown-list">
+                                <div class="dropdown-content">
+                                    <div class="megamenu-list">
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>EDITS</a>
+                                            <ul class="linklist">
+                                                <li><a href>The Holiday
+                                                        Edit</a></li>
+                                                <li><a href>Colours Of
+                                                        Spring</a></li>
+                                                <li><a href>Best Of
+                                                        Linen</a></li>
+                                                <li><a href>Spring
+                                                        Textures</a></li>
+                                                <li><a href>Academy
+                                                        Icons</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>CLOTHING</a>
+                                            <ul class="linklist">
+                                                <li><a href>View
+                                                        All</a></li>
+                                                <li><a href>Shorts</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Short Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Polo
+                                                        Shirts</a></li>
+                                                <li><a href>Tops &
+                                                        Tees</a></li>
+                                                <li><a href>Swim</a></li>
+                                                <li><a href>Pants &
+                                                        Chinos</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Tops</a></li>
+                                                <li><a href>Sweats</a></li>
+                                                <li><a href>Jackets &
+                                                        Outerwear</a></li>
+                                                <li><a
+                                                        href>Knitwear</a></li>
+                                                <li><a
+                                                        href>Accessories</a></li>
+                                                <li><a href>Sale</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-img">
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_f19f0c19-244e-493e-ad9d-c8623bec0190_370x230@2x.jpg?v=1725940076">
+                                                <b>NEW ARRIVALS</b>
+                                            </div>
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_GetawayEdit_370x230@2x.jpg?v=1726616398">
+                                                <b>THE GETAWAY EDIT</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </li>
+        <li class="header-list-left">
+          <a class="header-list-items" href>MENS</a>
+          <div class="dropdown-list">
+                                <div class="dropdown-content">
+                                    <div class="megamenu-list">
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>EDITS</a>
+                                            <ul class="linklist">
+                                                <li><a href>The Holiday
+                                                        Edit</a></li>
+                                                <li><a href>Colours Of
+                                                        Spring</a></li>
+                                                <li><a href>Best Of
+                                                        Linen</a></li>
+                                                <li><a href>Spring
+                                                        Textures</a></li>
+                                                <li><a href>Academy
+                                                        Icons</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>CLOTHING</a>
+                                            <ul class="linklist">
+                                                <li><a href>View
+                                                        All</a></li>
+                                                <li><a href>Shorts</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Short Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Polo
+                                                        Shirts</a></li>
+                                                <li><a href>Tops &
+                                                        Tees</a></li>
+                                                <li><a href>Swim</a></li>
+                                                <li><a href>Pants &
+                                                        Chinos</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Tops</a></li>
+                                                <li><a href>Sweats</a></li>
+                                                <li><a href>Jackets &
+                                                        Outerwear</a></li>
+                                                <li><a
+                                                        href>Knitwear</a></li>
+                                                <li><a
+                                                        href>Accessories</a></li>
+                                                <li><a href>Sale</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-img">
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_f19f0c19-244e-493e-ad9d-c8623bec0190_370x230@2x.jpg?v=1725940076">
+                                                <b>NEW ARRIVALS</b>
+                                            </div>
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_GetawayEdit_370x230@2x.jpg?v=1726616398">
+                                                <b>THE GETAWAY EDIT</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </li>
+        <li class="header-list-left">
+          <a class="header-list-items" href>MENS</a>
+          <div class="dropdown-list">
+                                <div class="dropdown-content">
+                                    <div class="megamenu-list">
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>EDITS</a>
+                                            <ul class="linklist">
+                                                <li><a href>The Holiday
+                                                        Edit</a></li>
+                                                <li><a href>Colours Of
+                                                        Spring</a></li>
+                                                <li><a href>Best Of
+                                                        Linen</a></li>
+                                                <li><a href>Spring
+                                                        Textures</a></li>
+                                                <li><a href>Academy
+                                                        Icons</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>CLOTHING</a>
+                                            <ul class="linklist">
+                                                <li><a href>View
+                                                        All</a></li>
+                                                <li><a href>Shorts</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Short Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Polo
+                                                        Shirts</a></li>
+                                                <li><a href>Tops &
+                                                        Tees</a></li>
+                                                <li><a href>Swim</a></li>
+                                                <li><a href>Pants &
+                                                        Chinos</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Tops</a></li>
+                                                <li><a href>Sweats</a></li>
+                                                <li><a href>Jackets &
+                                                        Outerwear</a></li>
+                                                <li><a
+                                                        href>Knitwear</a></li>
+                                                <li><a
+                                                        href>Accessories</a></li>
+                                                <li><a href>Sale</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-img">
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_f19f0c19-244e-493e-ad9d-c8623bec0190_370x230@2x.jpg?v=1725940076">
+                                                <b>NEW ARRIVALS</b>
+                                            </div>
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_GetawayEdit_370x230@2x.jpg?v=1726616398">
+                                                <b>THE GETAWAY EDIT</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </li>
+        <li class="header-list-left">
+          <a class="header-list-items" href>MENS</a>
+          <div class="dropdown-list">
+                                <div class="dropdown-content">
+                                    <div class="megamenu-list">
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>EDITS</a>
+                                            <ul class="linklist">
+                                                <li><a href>The Holiday
+                                                        Edit</a></li>
+                                                <li><a href>Colours Of
+                                                        Spring</a></li>
+                                                <li><a href>Best Of
+                                                        Linen</a></li>
+                                                <li><a href>Spring
+                                                        Textures</a></li>
+                                                <li><a href>Academy
+                                                        Icons</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-item">
+                                            <a class="megamenu-item-title"
+                                                href>CLOTHING</a>
+                                            <ul class="linklist">
+                                                <li><a href>View
+                                                        All</a></li>
+                                                <li><a href>Shorts</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Short Sleeve
+                                                        Shirts</a></li>
+                                                <li><a href>Polo
+                                                        Shirts</a></li>
+                                                <li><a href>Tops &
+                                                        Tees</a></li>
+                                                <li><a href>Swim</a></li>
+                                                <li><a href>Pants &
+                                                        Chinos</a></li>
+                                                <li><a href>Long Sleeve
+                                                        Tops</a></li>
+                                                <li><a href>Sweats</a></li>
+                                                <li><a href>Jackets &
+                                                        Outerwear</a></li>
+                                                <li><a
+                                                        href>Knitwear</a></li>
+                                                <li><a
+                                                        href>Accessories</a></li>
+                                                <li><a href>Sale</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="megamenu-img">
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_f19f0c19-244e-493e-ad9d-c8623bec0190_370x230@2x.jpg?v=1725940076">
+                                                <b>NEW ARRIVALS</b>
+                                            </div>
+                                            <div
+                                                class="megamenu-img-content">
+                                                <img
+                                                    src="//academybrand.com/cdn/shop/files/Megamenu_25S_GetawayEdit_370x230@2x.jpg?v=1726616398">
+                                                <b>THE GETAWAY EDIT</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </li>
+      </ul>
+    </div>
+
+    
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
@@ -160,15 +653,7 @@
       {%- endif -%}
     {%- endif -%}
 
-    {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
-      endif
-    %}
+  
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
@@ -199,8 +684,17 @@
         </h1>
       {%- endif -%}
     {%- endif -%}
-
-    <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
+  <div class="header-right">
+                    <ul>
+                        <li><a class="search">SEARCH</a></li>
+                        <li><a>STORES</a></li>
+                        <li><a>ACCOUNT</a></li>
+                        <li><a>REWARDS</a></li>
+                        <li><a>WISHLIST</a></li>
+                        <li><a class="header-cart">CART(1)</a></li>
+                    </ul>
+                </div>
+    <div class="header-right-icon header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
       <div class="desktop-localization-wrapper">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form class="small-hide medium-hide" data-prevent-hide>
