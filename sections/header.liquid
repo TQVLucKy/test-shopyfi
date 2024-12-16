@@ -120,6 +120,66 @@
     endif
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+      <!-- {%- liquid
+      if section.settings.menu != blank
+        if section.settings.menu_type_desktop == 'dropdown'
+          render 'header-dropdown-menu'
+        elsif section.settings.menu_type_desktop != 'drawer'
+          render 'header-mega-menu'
+        endif
+      endif
+    %} -->
+
+    .header-left ul,
+.header-right ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+.header-left ul li,
+.header-right ul li {
+  position: relative;
+  margin: 0 5px;
+}
+.header-left ul li a,
+.header-right ul li a {
+  text-decoration: none;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #000000;
+  display: inline-block;
+  padding: 5px 0;
+}
+.header-left .header-list-left {
+  margin: 0 20px;
+}
+.header-left .header-list-left .header-list-items::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #000000;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
+}
+.header-left .header-list-left .header-list-items:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom right;
+}
+.header-left .header-list-left:hover .dropdown-list {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+@media screen and (max-width: 1200px) {
+  .header-left {
+    display: none;
+  }
+}
+    
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
@@ -130,7 +190,7 @@
       endif
     -%}
 
-    <!-- {%- if section.settings.logo_position != 'middle-center' -%}
+    {%- if section.settings.logo_position != 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
@@ -158,17 +218,9 @@
       {%- if request.page_type == 'index' -%}
         </h1>
       {%- endif -%}
-    {%- endif -%} -->
+    {%- endif -%}
 
-    {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
-      endif
-    %}
+  
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
