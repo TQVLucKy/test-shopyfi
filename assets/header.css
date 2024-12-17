@@ -23,6 +23,7 @@
   justify-content: center;
   width: 100%;
   height: auto;
+  background-color: white;
 }
 .dropdown-list .dropdown-content .megamenu-list {
   padding-top: 40px;
