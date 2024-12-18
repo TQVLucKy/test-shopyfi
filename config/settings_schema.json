@@ -12,6 +12,18 @@
     "settings": [
       {
         "type": "image_picker",
+        "id": "logo_1",
+        "label": "Logo bình thường",
+        "info": "Logo hiển thị khi header chưa sticky."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_2",
+        "label": "Logo khi sticky",
+        "info": "Logo hiển thị khi header trở thành sticky."
+      },
+      {
+        "type": "image_picker",
         "id": "logo",
         "label": "t:settings_schema.logo.settings.logo_image.label"
       },

@@ -7,6 +7,17 @@ $(".search").each(function () {
 $(".search-close").on("click", function () {
     $(".formsearch").toggleClass("active");
 });
+$(window).scroll(function () {
+    var header = $('.header-wrapper');
+    var links = $('.header li a');
+    if ($(this).scrollTop() > 100) {
+        header.css('background-color', '#FFF');
+        links.css('color', '#1c1b1b')
+    } else {
+        header.css('background-color', 'transparent');
+        links.css('color', 'white');
+    }
+});
 
 // var swiperheaderight = new Swiper(".dropdown-content-results", {
 //     slidesPerView: 2,

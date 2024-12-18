@@ -101,8 +101,22 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  .header-wrapper{
+    transition: background-color 0.3s ease;
+  }
+  .header li a{
+    color:white;
+    transition: color 0.3s ease;
+  }
 .header-left{
   display:flex;
+  flex:1 0 0;
+}
+.header-right{
+  flex:1 0 0;
+}
+.header-right ul{
+  justify-content:end;
 }
   .header-left ul,
 .header-right ul {
@@ -122,7 +136,7 @@
   text-decoration: none;
   font-size: 12px;
   font-weight: bold;
-  color: #000000;
+  /* color: white; */
   display: inline-block;
   padding: 5px 0;
 }
@@ -141,7 +155,7 @@
   height: 1px;
   bottom: 0;
   left: 0;
-  background-color: #000000;
+  background-color: transparent;
   transform: scaleX(0);
   transform-origin: bottom left;
   transition: transform 0.25s ease-out;
@@ -786,7 +800,12 @@
         <h1 class="header__heading">
       {%- endif -%}
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-            {%- if settings.logo != blank -%}
+            <div class="header__heading-logo-wrapper">
+              <img src="{{ settings.logo_1 | img_url: '160x' }}" alt="{{ shop.name }}" class="header__heading-logo logo-default" width="160" height="auto" />
+              
+              <img src="{{ settings.logo_2 | img_url: '160x' }}" alt="{{ shop.name }}" class="header__heading-logo logo-sticky" width="160" height="auto" />
+            </div>
+            {% comment %} {%- if settings.logo != blank -%}
               <div class="header__heading-logo-wrapper">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
                 {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -804,7 +823,7 @@
               </div>
             {%- else -%}
               <span class="h2">{{ shop.name }}</span>
-            {%- endif -%}
+            {%- endif -%} {% endcomment %}
           </a>
       {%- if request.page_type == 'index' -%}
         </h1>
