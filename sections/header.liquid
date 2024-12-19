@@ -83,7 +83,15 @@
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
   }
-
+  .header:hover{
+    background-color:#fff;
+  }
+  .header:hover li a{
+    color:#1c1b1b;
+  }
+  .header-wrapper--border-bottom{
+    border-bottom:none;
+  }
   .section-header {
     position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
@@ -99,6 +107,10 @@
     .header {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  @media screen and (max-width: 1305px){
+    .header:not(.drawer-menu).page-width{
     }
   }
   .header-wrapper{
@@ -141,9 +153,20 @@
   padding: 5px 0;
 }
 .header-left .header-list-left {
-  margin: 0 20px;
-  
+  margin: 0 20px;  
+  border-bottom:none;
 }
+@media screen and (max-width: 1305px){
+  .header-left .header-list-left {
+    margin: 0 15px;  
+}
+}
+@media screen and (max-width: 1253px){
+  .header-left .header-list-left {
+    margin: 0 9px;  
+  }
+}
+
 .header-left .header-list-left .header-list-items{
   text-transform: uppercase;
   position:relative;
@@ -155,7 +178,7 @@
   height: 1px;
   bottom: 0;
   left: 0;
-  background-color: transparent;
+  background-color: #1c1b1b;
   transform: scaleX(0);
   transform-origin: bottom left;
   transition: transform 0.25s ease-out;
@@ -167,10 +190,18 @@
 .header-left .header-list-left:hover .dropdown-list {
   opacity: 1 !important;
   visibility: visible !important;
+  border-top: 1px solid #000000;
 }
+.header-left-mobile{
+    width:30px;
+    display:none;
+  }
 @media screen and (max-width: 1200px) {
-  .header-left {
+  .header-left ul{
     display: none;
+  }
+.header-left-mobile{
+  display:block
   }
 }
   .header .header-right a {
@@ -201,6 +232,16 @@
         display:none;
       }
     }
+    #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
@@ -226,6 +267,7 @@
       assign localization_forms = true
     endif
   -%}
+  <div id="overlay"></div>
   <header class="header header-center header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
       <!-- {%- liquid
       if section.settings.menu != blank
@@ -496,6 +538,9 @@
               </div>
           </li>
       </ul>
+        <span class="header-left-mobile">
+          {{ 'icon-hamburger.svg' | inline_asset_content }}
+        </span>
   </div>
   <div class="formsearch">
     <div class="search-inner">
@@ -753,15 +798,11 @@
         </div>
     </div>
 </div>
-    {%- liquid
-      if section.settings.menu != blank
-        render 'header-drawer'
-      endif
 
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-        render 'header-search', input_id: 'Search-In-Modal-1'
-      endif
-    -%}
+      {%- if section.settings.logo_position == 'top-center' or section.settings.menu == blank %}
+        {%- render 'header-search', input_id: 'Search-In-Modal-1' %}
+      {%- endif %}
+
 
     {%- if section.settings.logo_position != 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
@@ -770,7 +811,9 @@
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
             {%- if settings.logo != blank -%}
               <div class="header__heading-logo-wrapper">
-                {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+                <img src="//academybrand.com/cdn/shop/files/TAB_Logo_Stacked_White_160x.png?v=1649580544" alt="{{ shop.name }}" class="header__heading-logo logo-default" width="160" height="auto" />
+                <img src="//academybrand.com/cdn/shop/files/TAB_Logo_Stacked_Black_160x.png?v=1649579160" alt="{{ shop.name }}" class="header__heading-logo logo-sticky" style="display: none;" width="160" height="auto" />
+                {% comment %} {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
                 {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
                 {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
                {% capture widths %}160, 160, 160{% endcapture %}
@@ -782,7 +825,7 @@
                   alt: logo_alt,
                   sizes: sizes,
                   preload: true
-                }}
+                }} {% endcomment %}
               </div>
             {%- else -%}
               <span class="h2">{{ shop.name }}</span>
@@ -865,10 +908,9 @@
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
-      {%- if shop.customer_accounts_enabled -%}
-        <a
+      <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+          class="header__icon header__icon--account link focus-inset"
           rel="nofollow"
         >
           {%- if section.settings.enable_customer_avatar -%}
@@ -892,7 +934,7 @@
             -%}
           </span>
         </a>
-      {%- endif -%}
+
 
       {%- for block in section.blocks -%}
         {%- case block.type -%}
@@ -901,7 +943,7 @@
         {%- endcase -%}
       {%- endfor -%}
 
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
+      <div class="header-cart header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
           {% if cart == empty %}
             <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
           {% else %}
@@ -916,7 +958,7 @@
             <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
           </div>
         {%- endif -%}
-      </a>
+      </div>
     </div>
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>

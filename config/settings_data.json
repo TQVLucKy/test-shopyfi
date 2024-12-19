@@ -9,8 +9,7 @@
  */
 {
   "current": {
-    "logo_1": "shopify://shop_images/TAB_Logo_Stacked_White_160x_c4e06f95-77cc-40a4-afe8-a692721ae97f.png",
-    "logo_2": "shopify://shop_images/z6123336570615_8a600f69d4d3fa7359e77371023e827e.jpg",
+    "logo": "shopify://shop_images/z6123336570615_8a600f69d4d3fa7359e77371023e827e.jpg",
     "logo_width": 90,
     "type_header_font": "sans-serif",
     "heading_scale": 100,
@@ -140,10 +139,6 @@
         "settings": {
           "color_scheme": "scheme-1"
         }
-      },
-      "banner-custom-section": {
-        "type": "banner-custom-section",
-        "settings": {}
       }
     },
     "content_for_index": [],

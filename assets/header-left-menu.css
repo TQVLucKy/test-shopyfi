@@ -1,0 +1,130 @@
+#menu {
+    background-color: #1c1b1b;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: 420px;
+    z-index: 1000;
+    transition: left 0.5s ease;
+    overflow-y: auto;
+  }
+  @media screen and (min-width: 992px) and (max-width: 1200px) {
+    #menu {
+      width: 375px;
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    #menu {
+      width: 50%;
+    }
+  }
+  @media screen and (min-width: 576px) and (max-width: 768px) {
+    #menu {
+      width: 50%;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    #menu {
+      width: 95%;
+    }
+  }
+  #menu .linkitem {
+    padding: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.25);
+  }
+  #menu .close-menu-left {
+    margin: 20px 10px 10px 10px;
+    line-height: 0;
+  }
+  #menu .close-menu-left svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 1.25px;
+  }
+  #menu .metismenu {
+    margin: 30px 0;
+  }
+  #menu .metismenu .accordion {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    background-color: inherit;
+    text-transform: uppercase;
+    color: inherit;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    text-align: left;
+    outline: none;
+    width: 100%;
+  }
+  #menu .metismenu .accordion span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 18px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: transform 0.5s ease;
+  }
+  #menu .metismenu .accordion span::before {
+    content: "+";
+    color: rgba(255, 255, 255, 0.25);
+    transition: opacity 0.5s ease;
+  }
+  #menu .metismenu .accordion span::after {
+    content: "";
+  }
+  #menu .metismenu .accordion.active span {
+    transform: rotate(180deg);
+  }
+  #menu .metismenu .accordion.active span::before {
+    content: "-";
+  }
+  #menu .metismenu .panel {
+    overflow: hidden;
+    padding-left: 15px;
+    max-height: 0;
+    transition: max-height 1s ease-out;
+  }
+  #menu .metismenu .showpanel {
+    max-height: 600px !important;
+  }
+  #menu .metismenu > li {
+    position: relative;
+    padding: 10px 0;
+    text-transform: uppercase;
+  }
+  #menu .metismenu > li::before {
+    content: "";
+    width: 95%;
+    height: 0.5px;
+    background-color: white;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  #menu .metismenu > li .panel ul li .panel a {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 11px;
+    text-decoration: none;
+  }
+  #menu .metismenu > li .panel ul li .panel ul {
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    box-sizing: border-box;
+    padding-left: 20px;
+  }
+  #menu .metismenu > li .panel ul li .accordion {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 11px;
+  }
+  #menu.show {
+    left: 0 !important;
+  }
