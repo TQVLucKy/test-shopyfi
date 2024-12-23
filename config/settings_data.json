@@ -9,7 +9,9 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/z6123336570615_8a600f69d4d3fa7359e77371023e827e.jpg",
+    "logo_1": "shopify://shop_images/TAB_Logo_Stacked_White_160x_fdddf539-ffb3-484f-a8e6-6f59f9e7463a.png",
+    "logo_2": "shopify://shop_images/z6157915544892_6629614a7ea429a78fb903ac7a0e28bb.jpg",
+    "logo": "shopify://shop_images/TAB_Logo_Stacked_White_160x_fdddf539-ffb3-484f-a8e6-6f59f9e7463a.png",
     "logo_width": 90,
     "type_header_font": "sans-serif",
     "heading_scale": 100,
@@ -139,6 +141,18 @@
         "settings": {
           "color_scheme": "scheme-1"
         }
+      },
+      "banner-custom-section": {
+        "type": "banner-custom-section",
+        "settings": {}
+      },
+      "header-left-menu": {
+        "type": "header-left-menu",
+        "settings": {}
+      },
+      "cart-header": {
+        "type": "cart-header",
+        "settings": {}
       }
     },
     "content_for_index": [],
